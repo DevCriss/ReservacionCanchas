@@ -19,14 +19,14 @@ class PronosticoModel {
 
   factory PronosticoModel.fromJson(Map<String, dynamic> json) =>
       PronosticoModel(
-        humidity: json["humidity"],
-        rainProbability: json["rainProbability"],
-        temperature: json["temperature"],
+        humidity: json['humidity'],
+        rainProbability: json['rainProbability'],
+        temperature: json['temperature'],
       );
 
   Map<String, dynamic> toJson() => {
-        "humidity": humidity,
-        "rainProbability": rainProbability,
-        "temperature": temperature,
+        'humidity': humidity,
+        'rainProbability': rainProbability,
+        'temperature': temperature,
       };
 }
