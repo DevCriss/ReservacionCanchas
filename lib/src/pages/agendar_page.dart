@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reservacion_canchas/src/models/pronostico_model.dart';
 import 'package:reservacion_canchas/src/providers/agendamientos_provider.dart';
 import 'package:reservacion_canchas/src/providers/formulario_provider.dart';
+import 'package:reservacion_canchas/src/providers/weather_provider.dart';
 
 class AgendarPage extends StatelessWidget {
   FormularioProvider _formularioProvider;
   AgendamientosProvider _angendamientoProvider;
+  WeatherProvider _weatherProvider;
+
   @override
   Widget build(BuildContext context) {
     _formularioProvider = Provider.of<FormularioProvider>(context);
     _angendamientoProvider = Provider.of<AgendamientosProvider>(context);
+    _weatherProvider = WeatherProvider();
 
     return Scaffold(
       appBar: AppBar(
@@ -203,6 +208,8 @@ class AgendarPage extends StatelessWidget {
     if (picked != null) {
       final fecha = picked.toString().split(' ')[0];
       _formularioProvider.fecha = fecha;
+      PronosticoModel pronostico = await _weatherProvider.getPronostico(fecha);
+      print(pronostico);
     }
     ;
   }
