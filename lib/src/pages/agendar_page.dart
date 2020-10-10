@@ -4,6 +4,7 @@ import 'package:reservacion_canchas/src/models/pronostico_model.dart';
 import 'package:reservacion_canchas/src/providers/agendamientos_provider.dart';
 import 'package:reservacion_canchas/src/providers/formulario_provider.dart';
 import 'package:reservacion_canchas/src/providers/weather_provider.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class AgendarPage extends StatelessWidget {
   FormularioProvider _formularioProvider;
@@ -26,6 +27,7 @@ class AgendarPage extends StatelessWidget {
           children: [
             _canchaField(context),
             _fechaField(context),
+            _probabilidadLLuvia(),
             _nombreField(),
             _botones(context)
           ],
@@ -71,9 +73,12 @@ class AgendarPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(_formularioProvider.fecha != null
-                  ? _formularioProvider.fecha
-                  : 'Seleccione una fecha'),
+              Text(
+                _formularioProvider.fecha != null
+                    ? _formularioProvider.fecha
+                    : 'Seleccione una fecha',
+                style: TextStyle(fontSize: 18),
+              ),
               RaisedButton(
                 onPressed: () => _selectDate(context),
                 color: Colors.blueAccent,
@@ -208,8 +213,21 @@ class AgendarPage extends StatelessWidget {
     if (picked != null) {
       final fecha = picked.toString().split(' ')[0];
       _formularioProvider.fecha = fecha;
+      _formularioProvider.loadingWeather = true;
+
       PronosticoModel pronostico = await _weatherProvider.getPronostico(fecha);
-      print(pronostico);
+      if (pronostico == null) {
+        _showGeneralDialog(
+            context,
+            'No se pudo obtener la probabilidad de lluvia.',
+            'La fecha seleccionada excede el rango disponible para generar una predicción acertada del clima, por lo que se realizará el agendamiento sin esta información.');
+
+        _formularioProvider.probabilidadLluvia = null;
+        _formularioProvider.loadingWeather = false;
+        return;
+      }
+      _formularioProvider.loadingWeather = false;
+      _formularioProvider.probabilidadLluvia = pronostico.rainProbability;
     }
     ;
   }
@@ -221,5 +239,52 @@ class AgendarPage extends StatelessWidget {
         ],
         color: Color.fromRGBO(0, 127, 255, 0.5),
         borderRadius: BorderRadius.circular(10));
+  }
+
+  Widget _probabilidadLLuvia() {
+    return Container(
+      child: _formularioProvider.probabilidadLluvia == null
+          ? Container()
+          : Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Probabilidad de lluvia:',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  _formularioProvider.loadingWeather
+                      ? CircularProgressIndicator()
+                      : CircularPercentIndicator(
+                          radius: 45.0,
+                          lineWidth: 5.0,
+                          percent: _formularioProvider.probabilidadLluvia / 100,
+                          center: new Text(
+                              '${_formularioProvider.probabilidadLluvia}%'),
+                          progressColor: Colors.green,
+                        ),
+                ],
+              ),
+            ),
+    );
+  }
+
+  void _showGeneralDialog(BuildContext context, String title, String message) {
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [
+        FlatButton(
+            onPressed: () => Navigator.of(context).pop(), child: Text('Ok!'))
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }

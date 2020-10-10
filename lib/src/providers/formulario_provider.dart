@@ -4,6 +4,8 @@ class FormularioProvider with ChangeNotifier {
   String _cancha = null;
   String _fecha = null;
   String _usuario = null;
+  int _probabilidadLLuvia = null;
+  bool _loadingWeather = false;
 
   get cancha {
     return _cancha;
@@ -36,6 +38,25 @@ class FormularioProvider with ChangeNotifier {
     _cancha = null;
     _fecha = null;
     _usuario = null;
+    _probabilidadLLuvia = null;
+    notifyListeners();
+  }
+
+  get probabilidadLluvia {
+    return _probabilidadLLuvia;
+  }
+
+  set probabilidadLluvia(int probabilidad) {
+    _probabilidadLLuvia = probabilidad;
+    notifyListeners();
+  }
+
+  get loadingWeather {
+    return _loadingWeather;
+  }
+
+  set loadingWeather(bool status) {
+    _loadingWeather = status;
     notifyListeners();
   }
 }
