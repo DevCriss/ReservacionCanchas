@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:reservacion_canchas/src/providers/agendamientos_provider.dart';
 
 class HomePage extends StatelessWidget {
+  AgendamientosProvider _agendamientosProvider;
+
   @override
   Widget build(BuildContext context) {
+    _agendamientosProvider = Provider.of<AgendamientosProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Agendamientos'),
@@ -15,7 +21,9 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _agendamientosList() {
-    return Container();
+    return Container(
+      child: Text('${_agendamientosProvider.agentamientos.length}'),
+    );
   }
 
   FloatingActionButton _addButton(BuildContext context) {
