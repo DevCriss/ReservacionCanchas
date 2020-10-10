@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reservacion_canchas/src/models/agendamiento_model.dart';
 import 'package:reservacion_canchas/src/models/pronostico_model.dart';
 import 'package:reservacion_canchas/src/providers/agendamientos_provider.dart';
 import 'package:reservacion_canchas/src/providers/formulario_provider.dart';
@@ -8,13 +9,13 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 class AgendarPage extends StatelessWidget {
   FormularioProvider _formularioProvider;
-  AgendamientosProvider _angendamientoProvider;
+  AgendamientosProvider _agendamientoProvider;
   WeatherProvider _weatherProvider;
 
   @override
   Widget build(BuildContext context) {
     _formularioProvider = Provider.of<FormularioProvider>(context);
-    _angendamientoProvider = Provider.of<AgendamientosProvider>(context);
+    _agendamientoProvider = Provider.of<AgendamientosProvider>(context);
     _weatherProvider = WeatherProvider();
 
     return Scaffold(
@@ -48,9 +49,9 @@ class AgendarPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _cachaItem('A', context),
-              _cachaItem('B', context),
-              _cachaItem('C', context),
+              _canchaItem('A', context),
+              _canchaItem('B', context),
+              _canchaItem('C', context),
             ],
           ),
         ],
@@ -154,8 +155,7 @@ class AgendarPage extends StatelessWidget {
                     _formularioProvider.usuario != null &&
                     _formularioProvider.usuario.toString().length > 0)
                 ? () {
-                    _formularioProvider.resetForm();
-                    Navigator.of(context).pop();
+                    _agregarAgendamiento(context);
                   }
                 : null,
             child: Row(
@@ -173,7 +173,7 @@ class AgendarPage extends StatelessWidget {
     );
   }
 
-  Widget _cachaItem(String cancha, BuildContext context) {
+  Widget _canchaItem(String cancha, BuildContext context) {
     final fullWidth = MediaQuery.of(context).size.width;
     return FlatButton(
       onPressed: () => _formularioProvider.cancha = cancha,
@@ -286,5 +286,18 @@ class AgendarPage extends StatelessWidget {
         return alert;
       },
     );
+  }
+
+  void _agregarAgendamiento(BuildContext context) async {
+    AgendamientoModel agendamiento = AgendamientoModel(
+      cancha: _formularioProvider.cancha,
+      fecha: _formularioProvider.fecha,
+      usuario: _formularioProvider.usuario,
+      probabilidadLluvia: _formularioProvider.probabilidadLluvia,
+    );
+
+    await _agendamientoProvider.addAgendamiento(agendamiento);
+    _formularioProvider.resetForm();
+    Navigator.of(context).pop();
   }
 }
