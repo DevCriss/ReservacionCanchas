@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: _agendamientosList(),
-      floatingActionButton: _addButton(),
+      floatingActionButton: _addButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -18,9 +18,9 @@ class HomePage extends StatelessWidget {
     return Container();
   }
 
-  FloatingActionButton _addButton() {
+  FloatingActionButton _addButton(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () => Navigator.of(context).pushNamed('agendar'),
       child: Icon(Icons.add),
     );
   }
