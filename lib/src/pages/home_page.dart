@@ -17,12 +17,14 @@ class HomePage extends StatelessWidget {
       ),
       body: _agendamientosList(context),
       floatingActionButton: _addButton(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: _bottomNavBar(),
     );
   }
 
   FloatingActionButton _addButton(BuildContext context) {
     return FloatingActionButton(
+      backgroundColor: Colors.deepPurpleAccent,
       onPressed: () => Navigator.of(context).pushNamed('agendar'),
       child: Icon(Icons.add),
     );
@@ -36,5 +38,23 @@ class HomePage extends StatelessWidget {
           AgendamientoModel ag = _agendamientosProvider.agentamientos[index];
           return Agendamiento(agendamiento: ag);
         });
+  }
+
+  Widget _bottomNavBar() {
+    return BottomAppBar(
+      color: Color.fromRGBO(70, 169, 246, 1),
+      shape: CircularNotchedRectangle(),
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          IconButton(
+            color: Colors.white,
+            onPressed: () {},
+            iconSize: 32,
+            icon: Icon(Icons.info),
+          ),
+        ],
+      ),
+    );
   }
 }
