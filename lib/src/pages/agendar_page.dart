@@ -228,6 +228,8 @@ class AgendarPage extends StatelessWidget {
       }
       _formularioProvider.loadingWeather = false;
       _formularioProvider.probabilidadLluvia = pronostico.rainProbability;
+      _formularioProvider.humedad = pronostico.humidity;
+      _formularioProvider.temperatura = pronostico.temperature;
     }
     ;
   }
