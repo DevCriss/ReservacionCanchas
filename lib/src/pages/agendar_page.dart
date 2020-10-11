@@ -18,20 +18,23 @@ class AgendarPage extends StatelessWidget {
     _agendamientoProvider = Provider.of<AgendamientosProvider>(context);
     _weatherProvider = WeatherProvider();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Nuevo Agendamiento'),
-        centerTitle: true,
-      ),
-      body: Container(
-        child: ListView(
-          children: [
-            _canchaField(context),
-            _fechaField(context),
-            _probabilidadLLuvia(),
-            _nombreField(),
-            _botones(context)
-          ],
+    return WillPopScope(
+      onWillPop: () => _pop(context),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Nuevo Agendamiento'),
+          centerTitle: true,
+        ),
+        body: Container(
+          child: ListView(
+            children: [
+              _canchaField(context),
+              _fechaField(context),
+              _probabilidadLLuvia(),
+              _nombreField(),
+              _botones(context)
+            ],
+          ),
         ),
       ),
     );
@@ -243,7 +246,8 @@ class AgendarPage extends StatelessWidget {
 
   Widget _probabilidadLLuvia() {
     return Container(
-      child: _formularioProvider.probabilidadLluvia == null
+      child: _formularioProvider.probabilidadLluvia == null &&
+              !_formularioProvider.loadingWeather
           ? Container()
           : Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -307,5 +311,10 @@ class AgendarPage extends StatelessWidget {
       _formularioProvider.resetForm();
       Navigator.of(context).pop();
     }
+  }
+
+  _pop(BuildContext context) {
+    _formularioProvider.resetForm();
+    Navigator.of(context).pop();
   }
 }

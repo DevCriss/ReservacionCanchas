@@ -15,7 +15,24 @@ class HomePage extends StatelessWidget {
         title: Text('Agendamientos'),
         centerTitle: true,
       ),
-      body: _agendamientosList(context),
+      body: _agendamientosProvider.agentamientos.length > 0
+          ? _agendamientosList(context)
+          : Center(
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Sin agendamientos guardados',
+                    style: TextStyle(fontSize: 22.0)),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  'Aún no hay ningún angendamiento guardado. Puede comenzar a agregar nuevos y consultarlos aquí.',
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                )
+              ],
+            )),
       floatingActionButton: _addButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: _bottomNavBar(),
