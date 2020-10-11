@@ -49,7 +49,7 @@ class DBProvider {
   Future<List<AgendamientoModel>> getAgendamientos() async {
     final db = await database;
 
-    final res = await db.query(_agendamientosTableName);
+    final res = await db.query(_agendamientosTableName, orderBy: 'fecha');
 
     List<AgendamientoModel> list = res.isNotEmpty
         ? res.map((e) => AgendamientoModel.fromJson(e)).toList()
