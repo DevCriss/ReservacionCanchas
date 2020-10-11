@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => FormularioProvider())
       ],
       child: MaterialApp(
-        title: 'Material App',
+        title: 'Reservación de Canchas',
         debugShowCheckedModeBanner: false,
         initialRoute: 'home',
         routes: {
