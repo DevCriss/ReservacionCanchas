@@ -27,14 +27,13 @@ class AgendamientoModel {
 
   factory AgendamientoModel.fromJson(Map<String, dynamic> json) =>
       AgendamientoModel(
-        id: json['id'],
-        cancha: json['cancha'],
-        usuario: json['usuario'],
-        fecha: json['fecha'],
-        probabilidadLluvia: json['probabilidadLluvia'],
-        humedad: json['humedad'],
-        temperatura: json['temperatura'],
-      );
+          id: json['id'],
+          cancha: json['cancha'],
+          usuario: json['usuario'],
+          fecha: json['fecha'],
+          probabilidadLluvia: json['probabilidadLluvia'],
+          humedad: json['humedad'],
+          temperatura: json['temperatura']);
 
   Map<String, dynamic> toJson() => {
         'id': id,
