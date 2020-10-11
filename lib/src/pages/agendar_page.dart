@@ -296,11 +296,12 @@ class AgendarPage extends StatelessWidget {
 
   void _agregarAgendamiento(BuildContext context) async {
     AgendamientoModel agendamiento = AgendamientoModel(
-      cancha: _formularioProvider.cancha,
-      fecha: _formularioProvider.fecha,
-      usuario: _formularioProvider.usuario,
-      probabilidadLluvia: _formularioProvider.probabilidadLluvia,
-    );
+        cancha: _formularioProvider.cancha,
+        fecha: _formularioProvider.fecha,
+        usuario: _formularioProvider.usuario,
+        probabilidadLluvia: _formularioProvider.probabilidadLluvia,
+        humedad: _formularioProvider.humedad,
+        temperatura: _formularioProvider.temperatura);
 
     bool ableToSave = await _agendamientoProvider.isAbleToSave(
         agendamiento.fecha, agendamiento.cancha);

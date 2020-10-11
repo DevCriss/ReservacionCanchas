@@ -74,25 +74,49 @@ class DetallesAgendamiento extends StatelessWidget {
             'Pronostico del tiempo',
             style: TextStyle(fontSize: 24),
           ),
-          Container(
-            child: Row(
-              children: [
-                _itemMedida(
-                    'Probabilidad de lluvia', agendamiento.probabilidadLluvia),
-                _itemMedida('Humedad', agendamiento.probabilidadLluvia),
-                _itemMedida('Temperatura', agendamiento.probabilidadLluvia),
-              ],
-            ),
-          )
+          SizedBox(
+            height: 20,
+          ),
+          agendamiento.probabilidadLluvia == null
+              ? Text(
+                  'No disponible',
+                  style: TextStyle(fontSize: 18),
+                )
+              : Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _itemMedida('Probabilidad de lluvia',
+                          '${agendamiento.probabilidadLluvia}%', Icons.grain),
+                      _itemMedida(
+                          'Humedad', '${agendamiento.humedad}%', Icons.cloud),
+                      _itemMedida('Temperatura', '${agendamiento.temperatura}°',
+                          Icons.whatshot),
+                    ],
+                  ),
+                )
         ],
       ),
     );
   }
 
-  Widget _itemMedida(String titulo, int valor) {
+  Widget _itemMedida(String titulo, String valor, IconData icon) {
     return Container(
       child: Column(
-        children: [Text('$valor'), Text(titulo)],
+        children: [
+          Text(
+            valor,
+            style: TextStyle(fontSize: 20),
+          ),
+          Text(
+            titulo,
+            style: TextStyle(fontSize: 16),
+          ),
+          Icon(
+            icon,
+            color: Colors.blue,
+          )
+        ],
       ),
     );
   }

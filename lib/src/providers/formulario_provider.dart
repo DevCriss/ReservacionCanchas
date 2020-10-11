@@ -41,6 +41,8 @@ class FormularioProvider with ChangeNotifier {
     _fecha = null;
     _usuario = null;
     _probabilidadLLuvia = null;
+    _humedad = null;
+    _temperatura = null;
     notifyListeners();
   }
 
