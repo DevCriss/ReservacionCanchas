@@ -61,6 +61,7 @@ class HomePage extends StatelessWidget {
     return BottomAppBar(
       color: Color.fromRGBO(70, 169, 246, 1),
       shape: CircularNotchedRectangle(),
+      notchMargin: 8,
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
