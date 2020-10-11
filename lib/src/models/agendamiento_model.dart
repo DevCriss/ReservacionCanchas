@@ -13,6 +13,8 @@ class AgendamientoModel {
     this.usuario,
     this.fecha,
     this.probabilidadLluvia,
+    this.humedad,
+    this.temperatura,
   });
 
   int id;
@@ -20,6 +22,8 @@ class AgendamientoModel {
   String usuario;
   String fecha;
   int probabilidadLluvia;
+  int humedad;
+  int temperatura;
 
   factory AgendamientoModel.fromJson(Map<String, dynamic> json) =>
       AgendamientoModel(
@@ -28,6 +32,8 @@ class AgendamientoModel {
         usuario: json['usuario'],
         fecha: json['fecha'],
         probabilidadLluvia: json['probabilidadLluvia'],
+        humedad: json['humedad'],
+        temperatura: json['temperatura'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,6 +41,8 @@ class AgendamientoModel {
         'cancha': cancha,
         'usuario': usuario,
         'fecha': fecha,
-        'probabilidadLluvia': probabilidadLluvia
+        'probabilidadLluvia': probabilidadLluvia,
+        'humedad': humedad,
+        'temperatura': temperatura
       };
 }

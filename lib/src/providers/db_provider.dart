@@ -25,14 +25,16 @@ class DBProvider {
 
     final path = join(documentsDirectory.path, 'canchas.db');
 
-    return await openDatabase(path, version: 1, onOpen: (db) {},
+    return await openDatabase(path, version: 2, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('CREATE TABLE $_agendamientosTableName('
           ' id INTEGER PRIMARY KEY,'
           ' cancha TEXT,'
           ' usuario TEXT,'
           ' fecha TEXT,'
-          ' probabilidadLluvia INTEGER'
+          ' probabilidadLluvia INTEGER,'
+          ' humedad INTEGER,'
+          ' temperatura INTEGER'
           ')');
     });
   }

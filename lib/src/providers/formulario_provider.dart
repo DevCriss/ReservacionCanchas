@@ -5,6 +5,8 @@ class FormularioProvider with ChangeNotifier {
   String _fecha = null;
   String _usuario = null;
   int _probabilidadLLuvia = null;
+  int _humedad = null;
+  int _temperatura = null;
   bool _loadingWeather = false;
 
   get cancha {
@@ -57,6 +59,24 @@ class FormularioProvider with ChangeNotifier {
 
   set loadingWeather(bool status) {
     _loadingWeather = status;
+    notifyListeners();
+  }
+
+  get humedad {
+    return _humedad;
+  }
+
+  set humedad(int humedad) {
+    _humedad = humedad;
+    notifyListeners();
+  }
+
+  get temperatura {
+    return _temperatura;
+  }
+
+  set temperatura(int temp) {
+    _temperatura = temp;
     notifyListeners();
   }
 }
