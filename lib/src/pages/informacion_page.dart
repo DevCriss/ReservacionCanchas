@@ -18,8 +18,7 @@ class InformacionPage extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(blurRadius: 20, color: Color.fromRGBO(0, 0, 0, 0.1))
       ]),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: [
           Text(
             'Esta app fue realizada con el propósito de presentar una prueba técnica para desarrollador de aplicaciones multiplataforma en Flutter.',

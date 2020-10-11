@@ -4,7 +4,7 @@ import 'package:reservacion_canchas/src/models/agendamiento_model.dart';
 import 'package:reservacion_canchas/src/providers/agendamientos_provider.dart';
 
 class Agendamiento extends StatelessWidget {
-  AgendamientoModel agendamiento;
+  final AgendamientoModel agendamiento;
   Agendamiento({this.agendamiento});
   AgendamientosProvider _agendamientosProvider;
   @override
@@ -43,15 +43,18 @@ class Agendamiento extends StatelessWidget {
   }
 
   Widget _image() {
-    return Container(
-        width: 60.0,
-        height: 60.0,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(
-                    'assets/images/Cancha${agendamiento.cancha}.jpg'))));
+    return Hero(
+      tag: agendamiento.id,
+      child: Container(
+          width: 60.0,
+          height: 60.0,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                      'assets/images/Cancha${agendamiento.cancha}.jpg')))),
+    );
   }
 
   Widget _content(BuildContext context) {
@@ -59,6 +62,8 @@ class Agendamiento extends StatelessWidget {
         ? '${agendamiento.probabilidadLluvia}%'
         : 'N/A';
     return ListTile(
+      onTap: () =>
+          Navigator.of(context).pushNamed('detalles', arguments: agendamiento),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
