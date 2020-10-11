@@ -66,4 +66,13 @@ class DBProvider {
 
     return res;
   }
+
+  Future<bool> isAbleToSave(String fecha, String cancha) async {
+    final db = await database;
+
+    final res = await db.query(_agendamientosTableName,
+        where: 'fecha = ? AND cancha = ?', whereArgs: [fecha, cancha]);
+
+    return res.length < 3;
+  }
 }

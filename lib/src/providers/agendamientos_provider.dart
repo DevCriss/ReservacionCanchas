@@ -29,4 +29,10 @@ class AgendamientosProvider with ChangeNotifier {
     _updateAgendamientos();
     return res;
   }
+
+  Future<bool> isAbleToSave(String fecha, String cancha) async {
+    bool res = await DBProvider.db.isAbleToSave(fecha, cancha);
+
+    return res;
+  }
 }

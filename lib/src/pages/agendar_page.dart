@@ -296,8 +296,16 @@ class AgendarPage extends StatelessWidget {
       probabilidadLluvia: _formularioProvider.probabilidadLluvia,
     );
 
-    await _agendamientoProvider.addAgendamiento(agendamiento);
-    _formularioProvider.resetForm();
-    Navigator.of(context).pop();
+    bool ableToSave = await _agendamientoProvider.isAbleToSave(
+        agendamiento.fecha, agendamiento.cancha);
+
+    if (!ableToSave) {
+      _showGeneralDialog(context, 'Limite excedido',
+          '¡Lo sentimos! El límite máximo de agendamientos para el dia ${agendamiento.fecha} en la cancha ${agendamiento.cancha} ha sido excedido. Por favor intente con una opción diferente.');
+    } else {
+      await _agendamientoProvider.addAgendamiento(agendamiento);
+      _formularioProvider.resetForm();
+      Navigator.of(context).pop();
+    }
   }
 }
