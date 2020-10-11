@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
             )),
       floatingActionButton: _addButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: _bottomNavBar(),
+      bottomNavigationBar: _bottomNavBar(context),
     );
   }
 
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
         });
   }
 
-  Widget _bottomNavBar() {
+  Widget _bottomNavBar(BuildContext context) {
     return BottomAppBar(
       color: Color.fromRGBO(70, 169, 246, 1),
       shape: CircularNotchedRectangle(),
@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           IconButton(
             color: Colors.white,
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).pushNamed('info'),
             iconSize: 32,
             icon: Icon(Icons.info),
           ),
