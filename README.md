@@ -1,7 +1,7 @@
-# Reservasiones Canchas
+# Reservaciones Canchas
 
 Aplicación escrita en Dart para prueba técnica de desarrollador de aplicaciones multiplataforma en Flutter.
-La app tiene como intención controlar el registro de agrandamientos para canchas de tennis, tomando en cuenta la fecha y el pronostico de factores climáticos para el día de dichos registros.
+La app tiene como intención controlar el registro de agendamientos para canchas de tennis, tomando en cuenta la fecha y el pronostico de factores climáticos para el día de dichos registros.
 
 ## Capturas de pantalla
 ![Imagen 1](https://firebasestorage.googleapis.com/v0/b/weatherforecast01.appspot.com/o/Captura%20de%20pantalla%20de%202020-10-11%2009-25-05.png?alt=media&token=422e87c3-114c-4cc1-88f7-4f98cc303769)
